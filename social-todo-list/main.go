@@ -2,16 +2,20 @@ package main
 
 import (
 	"log"
+	"os"
 	"social-todo-list/modules/item/model"
 	"social-todo-list/modules/item/transport"
 
 	"github.com/gin-gonic/gin"
+	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func main() {
-	db, err := gorm.Open(mysql.Open("root:root@tcp(mysql:3306)/todolist?charset=utf8mb4&parseTime=True&loc=Local"), &gorm.Config{})
+	godotenv.Load(".env")
+	dsn := os.Getenv("DB_CONNECTION_STRING")
+	db, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	db.AutoMigrate(&model.TodoItem{})
 	if err != nil {
 		log.Fatalln("missing MySQL connection string.")

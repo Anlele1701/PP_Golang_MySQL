@@ -81,7 +81,7 @@ func ListItem(db *gorm.DB) func(*gin.Context) {
 			})
 			return
 		}
-		c.JSON(http.StatusOK, common.NewSuccessResponse(data, &paging, &filter))	
+		c.JSON(http.StatusOK, common.NewSuccessResponse(data, &paging, &filter))
 	}
 }
 func UpdateItem(db *gorm.DB) func(*gin.Context) {

@@ -18,7 +18,9 @@ services:
       dockerfile: Dockerfile
     container_name: golang-mysql-demo-container
     depends_on:
-      - mysql
+      mysql:
+        condition: service_healthy
+        restart: true
     ports:
       - "8080:8080"
     networks:
