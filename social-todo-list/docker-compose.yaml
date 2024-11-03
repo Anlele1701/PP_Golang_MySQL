@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: todolist
+      MYSQL_PASSWORD: root
+    ports:
+      - "3306:3306"
+    networks:
+      - golang-mysql-network
+
+  golang-mysql-demo:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: golang-mysql-demo-container
+    depends_on:
+      - mysql
+    ports:
+      - "8080:8080"
+    networks:
+      - golang-mysql-network
+
+networks:
+  golang-mysql-network:
+    driver: bridge
